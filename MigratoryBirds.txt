@@ -1,0 +1,61 @@
+'use strict';
+
+const fs = require('fs');
+
+process.stdin.resume();
+process.stdin.setEncoding('utf-8');
+
+let inputString = '';
+let currentLine = 0;
+
+process.stdin.on('data', function(inputStdin) {
+    inputString += inputStdin;
+});
+
+process.stdin.on('end', function() {
+    inputString = inputString.split('\n');
+
+    main();
+});
+
+function readLine() {
+    return inputString[currentLine++];
+}
+
+// Complete the migratoryBirds function below.
+function migratoryBirds(ar) {
+    let n = ar.length;
+    let ar1 = new Array(n);
+    ar1.fill(0);
+        for(let i=0;i<n;i++)
+        {
+            ar1[ar[i]]++;
+        }
+        let max=0;
+        let maxpos=0;
+        console.log(ar1);
+        for(let i=0;i<n;i++)
+        {
+            if(ar1[i]>max)
+            {
+                max=ar1[i];
+                maxpos=i;
+            }
+        }
+        return maxpos;
+
+}
+
+function main() {
+    const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
+
+    const arrCount = parseInt(readLine().trim(), 10);
+
+    const arr = readLine().replace(/\s+$/g, '').split(' ').map(arrTemp => parseInt(arrTemp, 10));
+
+    const result = migratoryBirds(arr);
+
+    ws.write(result + '\n');
+
+    ws.end();
+}
